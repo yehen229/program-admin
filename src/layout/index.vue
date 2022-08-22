@@ -3,9 +3,11 @@
         <TopHeader />
         <div id="center">
             <LeftMenu />
-            <router-view class="route"></router-view>
+            <div class="center-right">
+                <router-view class="route"></router-view>
+                <FooterMenu />
+            </div>
         </div>
-        <FooterMenu />
     </div>
 </template>
 
@@ -41,6 +43,13 @@ export default {
 
     >.route {
         // width: 100%;
+    }
+
+    >.center-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
     }
 }
 </style>

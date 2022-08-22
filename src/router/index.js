@@ -41,6 +41,16 @@ const routes = [
         component: () => import('@/pages/user/visitor')
       }
     ]
+  },
+  {
+    path: '/money',
+    component: Layout,
+    children: [
+      {
+        path: 'moneyList',
+        component: () => import('@/pages/money/moneyList')
+      }
+    ]
   }
   
 ]
