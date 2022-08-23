@@ -5,14 +5,17 @@
 
 import Mock from 'mockjs';      //引入Mock.js
 const Random = Mock.Random;   //Mock.Random()是一个工具类，用于生成各种随机数据
-let data = {
-    template: [],
-};                  //用于接受生成的数据的数组
-let List = [];
-const count = 60;
 Mock.setup({
     timeout: '300-600'  //设置全局延时  没有延时有时会检测不到数据变化
 })
+
+let data = {
+    template: [],
+};                  //左侧menu数据
+let List = [];      //money页page数据
+
+const count = 60;
+
 for (let i = 0; i < 10; i++) {
     let template = {
         name: Random.name(),            //随机名字
@@ -22,16 +25,6 @@ for (let i = 0; i < 10; i++) {
     
     data.template.push(template);
 }
-
-/*
-    id
-    username
-    address
-    createTime
-    income
-    pay
-    accoutCash
-*/
 
 for (let i = 0; i < count; i++){
     List.push(Mock.mock({
@@ -44,6 +37,7 @@ for (let i = 0; i < count; i++){
         accoutCash: Mock.Random.integer(0,9999)
     }))
 }
+
 let menulist = {
     list: [
         {
@@ -78,6 +72,19 @@ let menulist = {
         }
     ]
 }
+
 data.menulist = menulist;
 Mock.mock("/data/index", "get", data);
 Mock.mock("/data/info", "get", List);
+Mock.mock(/\/data\/info\/add/, "post", (params) => {
+    let newData = JSON.parse(params.body);
+    /*
+        后端对newData进行处理
+    */
+    List.push(newData);
+    return {
+        code: '0',
+        message: 'success',
+        data: List
+    }
+})

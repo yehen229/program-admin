@@ -7,3 +7,11 @@ export function getMoneyData() {
     })
 }
 
+export function addMoneyData(params) {
+    return request({
+        url: 'data/info/add',
+        method: 'POST',
+        data: JSON.stringify(params)
+    })
+}
+
