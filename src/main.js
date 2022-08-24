@@ -6,7 +6,6 @@ import './mock'
 import '@/style/common.css'
 
 Vue.config.productionTip = false
-console.log(process.env);
 
 new Vue({
   router,

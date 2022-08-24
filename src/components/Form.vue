@@ -29,7 +29,6 @@ export default {
     },
 
     mounted() {
-
     },
 
     methods: {
@@ -44,7 +43,6 @@ export default {
             };
             addMoneyData(formdata).then(res => {
                 this.container = res.data.data;
-                console.log(this.container);
                 this.$emit('updateMoneyData', this.container);
             })
         }

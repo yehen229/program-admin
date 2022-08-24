@@ -51,6 +51,11 @@ const routes = [
         component: () => import('@/pages/money/moneyList')
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/pages/login')
   }
   
 ]

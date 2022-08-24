@@ -9,11 +9,13 @@
                     <img :src="item.imgSrc" alt="">
                 </a>
             </li>
+            <li @click.stop="logout">登出</li>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     name: 'topheader',
 
@@ -37,7 +39,10 @@ export default {
     },
 
     methods: {
-
+        async logout() {
+            await this.$store.dispatch('userLogOut');
+            console.log(document.cookie);
+        }
     },
 };
 </script>

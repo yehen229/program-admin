@@ -19,6 +19,7 @@
 
 <script>
 import { getTestData } from '@/api/menu';
+import { getCookie } from '@/util/cookie';
 export default {
     name: 'LeftMenu',
 
@@ -38,14 +39,13 @@ export default {
     },
     mounted() {
         this.getMenuData();
-        console.log(this.menuList, 'menu');
+        getCookie('Token');
     },
 
     methods: {
         getMenuData() {
             getTestData().then(res => {
                 this.menuData = res.data;
-                console.log(this.menuData)
             })
         },
         showMenu(item) {

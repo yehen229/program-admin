@@ -55,7 +55,6 @@ const money = {
             return new Promise(resolve => {
                 getMoneyData().then(res => {
                     const data = res.data;
-                    console.log(data, '取到MoneyData');
                     resolve(data);
                 })
             })

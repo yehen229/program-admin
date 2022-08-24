@@ -8,11 +8,22 @@ const Random = Mock.Random;   //Mock.Random()是一个工具类，用于生成�
 Mock.setup({
     timeout: '300-600'  //设置全局延时  没有延时有时会检测不到数据变化
 })
-
+let testToken = "TestToken"
 let data = {
     template: [],
 };                  //左侧menu数据
 let List = [];      //money页page数据
+let user = [{
+    username: 'ljl',
+    password: '666'
+},
+    {
+        username: 'zhangsan',
+        password: '999'
+    }
+
+]
+
 
 const count = 60;
 
@@ -37,6 +48,8 @@ for (let i = 0; i < count; i++){
         accoutCash: Mock.Random.integer(0,9999)
     }))
 }
+
+
 
 let menulist = {
     list: [
@@ -88,3 +101,33 @@ Mock.mock(/\/data\/info\/add/, "post", (params) => {
         data: List
     }
 })
+Mock.mock(/\/data\/login\/check/, "post", (params) => {
+    let newData = JSON.parse(params.body);
+    let name = false;
+    let pass = false;
+    user.forEach(item => {
+        if (item.username == newData.username) {
+            name = true;
+            if (item.password == newData.password) {
+                pass = true;
+            }
+        }
+    })
+    return {
+        code: '0',
+        message: 'success',
+        data: {
+            name,
+            pass,
+            token: testToken
+        }
+    }
+})
+
+Mock.mock(/\/data\/logout/, "get", () => {
+    return {
+        code: 200,
+        data: ""
+    }
+})
+

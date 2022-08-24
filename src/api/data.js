@@ -1,4 +1,5 @@
 import request from '@/util/axios.js'
+import { setCookie } from '@/util/cookie'
 
 export function getMoneyData() {
     return request({
@@ -15,3 +16,21 @@ export function addMoneyData(params) {
     })
 }
 
+export function getLoginData(data) {
+    return request({
+        url: 'data/login/check',
+        method: 'POST',
+        data: JSON.stringify(data)
+    }).then(res => {
+        setCookie('Token', res.data.data.token);
+        return res
+    })
+}
+
+export function logOut(data) {
+    return request({
+        url: 'data/logout',
+        method: 'GET',
+        data: JSON.stringify(data)
+    })
+}
