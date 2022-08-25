@@ -10,7 +10,8 @@ export function setCookie(name, value, expiredays) {
     let initCookie = () => {
         let destroyDate = new Date();
         destroyDate.setDate(destroyDate.getDate() + expiredays);
-        document.cookie = name + "=" + value.toString() + ((expiredays == null) ? "" : "; expires=" + expiredays.toGMTString())
+        console.log(destroyDate)
+        document.cookie = name + "=" + value.toString() + ((expiredays == null) ? "" : "; expires=" + destroyDate.toGMTString())
     }
     if (getCookie(name) != null) {
         initCookie();

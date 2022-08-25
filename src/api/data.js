@@ -22,7 +22,7 @@ export function getLoginData(data) {
         method: 'POST',
         data: JSON.stringify(data)
     }).then(res => {
-        setCookie('Token', res.data.data.token);
+        setCookie('Token', res.data.data.token, 3);
         return res
     })
 }

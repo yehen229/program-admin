@@ -25,7 +25,6 @@ const user = {
                     commit('SET_TOKEN', '');
                     commit('SET_USERNAME', '');
                     deleteCookie('Token');
-                    console.log(document.cookie,'删除');
                     resolve();
                 }).catch(err => {
                     reject(err);

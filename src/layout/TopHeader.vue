@@ -42,6 +42,7 @@ export default {
         async logout() {
             await this.$store.dispatch('userLogOut');
             console.log(document.cookie);
+            this.$router.push('/login');
         }
     },
 };
