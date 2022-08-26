@@ -1,7 +1,7 @@
 <template>
     <div id="leftMenu">
         <div class="MenuContianer">
-            <li v-for="(item, index) in menuData.menulist.list" :key="index">
+            <li v-for="(item, index) in menuData.menulist.list" :key="index" v-show="!item.role || item.role == currentRole">
                 <router-link v-if='!item.children' :to="item.route" class="routeTop">{{ item.name }}</router-link>
                 <div v-else @click="showMenu(item)">
                     {{ item.name }}
@@ -20,6 +20,7 @@
 <script>
 import { getTestData } from '@/api/menu';
 import { getCookie } from '@/util/cookie';
+
 export default {
     name: 'LeftMenu',
 
@@ -33,6 +34,9 @@ export default {
         };
     },
     computed: {
+        currentRole: function() {
+            return this.$store.getters.currentRole
+        }
     },
     created() {
 
@@ -40,12 +44,14 @@ export default {
     mounted() {
         this.getMenuData();
         getCookie('Token');
+        console.log(this.$router)
     },
 
     methods: {
         getMenuData() {
             getTestData().then(res => {
                 this.menuData = res.data;
+                console.log(this.menuData)
             })
         },
         showMenu(item) {

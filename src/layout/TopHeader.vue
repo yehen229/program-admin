@@ -39,10 +39,12 @@ export default {
     },
 
     methods: {
-        async logout() {
-            await this.$store.dispatch('userLogOut');
-            console.log(document.cookie);
-            this.$router.push('/login');
+        logout() {
+            this.$store.dispatch('userLogOut').then(() => {
+                console.log(document.cookie);
+                this.$router.push('/login');
+            });
+
         }
     },
 };

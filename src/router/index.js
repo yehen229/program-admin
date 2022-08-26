@@ -3,9 +3,15 @@ import VueRouter from 'vue-router'
 import { Layout } from '@/layout'
 import { getCookie,deleteCookie } from '@/util/cookie.js'
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+    return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(VueRouter)
 
-const routes = [
+export const totalRoutes = [
   {
     path: '',
     component: Layout,
@@ -64,23 +70,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: '/home/',
-  routes
-})
-
-router.beforeEach((to, from,next) => {
-  if (to.name != 'login') {
-    if (getCookie('Token') == null) {
-      next({
-        name: 'login'
-      })
-    }
-    else {
-      next();
-    }
-  } else {
-    deleteCookie();
-    next();
-  }
+  routes: totalRoutes
 })
 
 export default router

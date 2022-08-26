@@ -10,7 +10,7 @@ instance.interceptors.request.use(config => {
     let accessToken = getCookie('Token');
     if (accessToken && accessToken !== "") {
         config.headers = {
-            'Authorization': getCookie('Token')
+            'Authorization': "Token" + getCookie('Token')
         }
     }
     return config

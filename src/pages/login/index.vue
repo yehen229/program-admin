@@ -9,6 +9,8 @@
 
 <script>
 import { getLoginData } from '@/api/data';
+import { getCookie } from '@/util/cookie';
+import { initRole } from '@/util/permission'
 export default {
     name: 'Login',
 
@@ -33,8 +35,11 @@ export default {
                     if (res.data.data.name == false) alert('查无此人')
                     else if (res.data.data.name == true && res.data.data.pass == false) alert('密码错误');
                     else {
-                        localStorage.setItem('testUsername', this.username);
-                        localStorage.setItem('testPassword', this.password);
+                        console.log(res.data)
+                        this.$store.commit('SET_USER', this.username);
+                        this.$store.commit('SET_CURRENTROLE', res.data.data.role);
+                        this.$store.commit('SET_TOKEN', res.data.data.token);
+                        console.log(this.$store.state.user, 'USER');
                         this.$router.push('/index/index');
                         console.log(document.cookie, 'TOKEN加入');
                     }

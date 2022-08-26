@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './mock'
 import '@/style/common.css'
+import '@/util/permission.js'
 
 Vue.config.productionTip = false
 

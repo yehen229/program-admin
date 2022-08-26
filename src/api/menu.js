@@ -5,6 +5,7 @@ export function getTestData() {
         method: 'get',
         url: '/data/index',
     }).then((res) => {
+        console.log(res)
         res.data.menulist.list.map((item) => {
             if (item.hasOwnProperty('children')) {
                 Object.defineProperty(item, 'hidden', { value: true });
@@ -14,3 +15,9 @@ export function getTestData() {
     })
 }
 
+export function getAdminMenu() {
+    return request({
+        method: 'get',
+        url: '/data/admin'
+    })
+}

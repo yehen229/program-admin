@@ -13,13 +13,16 @@ let data = {
     template: [],
 };                  //左侧menu数据
 let List = [];      //money页page数据
-let user = [{
-    username: 'ljl',
-    password: '666'
-},
+let user = [
+    {
+        username: 'ljl',
+        password: '666',
+        role: 'admin'
+    },
     {
         username: 'zhangsan',
-        password: '999'
+        password: '999',
+        role: 'visitor'
     }
 
 ]
@@ -77,7 +80,8 @@ let menulist = {
         },
         {
             name: 'test',
-            route: '/index/index'
+            route: '/secret/secret',
+            role: 'admin'
         },
         {
             name: 'Money',
@@ -86,8 +90,24 @@ let menulist = {
     ]
 }
 
+let adminMenu = {
+    list: [
+        {
+            path: '/secret',
+            name: 'secret',
+            children: [
+                {
+                    path: 'secret',
+                    
+                }
+            ]
+        }
+    ]
+}
+
 data.menulist = menulist;
 Mock.mock("/data/index", "get", data);
+Mock.mock("/data/admin", "get", adminMenu);
 Mock.mock("/data/info", "get", List);
 Mock.mock(/\/data\/info\/add/, "post", (params) => {
     let newData = JSON.parse(params.body);
@@ -105,11 +125,13 @@ Mock.mock(/\/data\/login\/check/, "post", (params) => {
     let newData = JSON.parse(params.body);
     let name = false;
     let pass = false;
+    let role = '';
     user.forEach(item => {
         if (item.username == newData.username) {
             name = true;
             if (item.password == newData.password) {
                 pass = true;
+                role = item.role;
             }
         }
     })
@@ -119,7 +141,8 @@ Mock.mock(/\/data\/login\/check/, "post", (params) => {
         data: {
             name,
             pass,
-            token: testToken
+            token: testToken,
+            role
         }
     }
 })
